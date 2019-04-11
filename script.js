@@ -52,7 +52,7 @@ const getImage = (rand, i) => {
 						document.querySelectorAll('.active').forEach(img => {
 							img.classList.toggle('flip');
 						})
-					}, 2800)
+					}, 1200)
 
 					setTimeout( () => {
 						document.querySelectorAll('.active').forEach(img => {
@@ -61,13 +61,13 @@ const getImage = (rand, i) => {
 							img.classList.toggle('active');
 						})
 						
-					}, 3000)
+					}, 2000)
 
 					setTimeout( () => {
 						document.querySelectorAll('.flip').forEach(img => {
 							img.classList.toggle('flip');
 						})
-					}, 5000)
+					}, 3200)
 					console.log('no match');
 
 					firstClick = '';
