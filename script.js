@@ -1,5 +1,7 @@
 let container = document.querySelector('.game-container'); 
 let gamePieces = []; 
+let randomPieces = []; 
+let firstClick = false; 
 
 const shuffle = (array) => {
     var currentIndex = array.length
@@ -22,39 +24,32 @@ const shuffle = (array) => {
     return array;
 }
 
+const getImage = (i, rand) => {
+	let img = document.createElement('img');
+	img.setAttribute('src', `https://robohash.org/${rand}?set=set4`);
+	img.setAttribute('id', i);
+
+	return img
+}
+
 
 const createGameBoard = () => {
 	for (let i = 0; i < 10; i++) {
-		// create initial 10 cards 
-		let img = document.createElement('img');
 		let random = Math.floor(Math.random() * 99999);
-		// save generated hash and id in array, deeply nested
-		gamePieces.push([random, i]); 
-		img.setAttribute('src', `https://robohash.org/${random}?set=set4`);
-		img.setAttribute('id', i); 
-		container.appendChild(img);
-		let imgAtId = document.getElementById(i)
-		imgAtId.addEventListener('click', (evt) => {
-			console.log(evt);
-		})
+		container.appendChild(getImage(i, random));
+		container.appendChild(getImage(i, random));
 	}
 
-	// shuffle hash/id array
-	shuffle(gamePieces); 
-
-	// place initial 10 cards randomized as new elements with previously generated hash/id array 
-	gamePieces.forEach(x => {
-		let img = document.createElement('img');
-		img.setAttribute('src', `https://robohash.org/${x[0]}?set=set4`)
-		img.setAttribute('id', x[1] + 10);
+	document.querySelectorAll('img').forEach(node => {
+		gamePieces.push(node); 
+	})
+	shuffle(gamePieces);
+	gamePieces.forEach(img => {
 		container.appendChild(img);
-		let imgAtId = document.getElementById(x[1] + 10)
-		imgAtId.addEventListener('click', (evt) => {
-			console.log(evt);
-		})
 	})
 }
 
 createGameBoard();
 
 console.log(gamePieces);
+console.log(randomPieces);
