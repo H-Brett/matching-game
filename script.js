@@ -1,6 +1,6 @@
 let container = document.querySelector('.game-container'); 
 let gamePieces = []; 
-let firstClick; 
+let clickedElements = []; 
 
 const shuffle = (array) => {
     var currentIndex = array.length
@@ -23,6 +23,29 @@ const shuffle = (array) => {
     return array;
 }
 
+const compareValues = (arr) => {
+	if(arr[0].lastChild.id === arr[1].lastChild.id) {
+		console.log('match');
+	} else {
+		setTimeout( () => {
+			arr.forEach(div => {
+				div.classList.toggle('flip');
+			})
+		}, 2800)
+		setTimeout( () => {
+			arr.forEach(div => {
+				div.classList.toggle('flip-back')
+				div.firstChild.classList.toggle('hidden')
+			})
+		}, 3000)
+	}
+
+	console.log(arr);
+	clickedElements = []; 
+}
+
+
+
 const getImage = (rand, i) => {
 	let div = document.createElement('div');
 	div.setAttribute('class', 'image-container');
@@ -31,55 +54,26 @@ const getImage = (rand, i) => {
 
 	let img = document.createElement('img');
 	img.setAttribute('src', `grey.png`);
-	img.setAttribute('id', i);
+	img.setAttribute('id', 'grey');
+	img.classList.add('over')
+
+	let gamePiece = document.createElement('img'); 
+	gamePiece.setAttribute('src',`https://robohash.org/${rand}?set=set4`)
+	gamePiece.setAttribute('id', i); 
 
 	div.appendChild(img)
-	div.addEventListener('click', (evt) => {
-			if (firstClick) {
-				img.setAttribute('src', `https://robohash.org/${rand}?set=set4`);
-				img.classList.toggle('flip');
-				img.classList.toggle('active'); 
+	div.appendChild(gamePiece)
 
-				if (firstClick === evt.srcElement.id) {
-					document.querySelectorAll('.active').forEach(img => {
-							img.classList.toggle('active');
-							img.classList.toggle('flip');
-						})
-					console.log('you matched'); 
-					firstClick = '';
-				} else {
-					setTimeout( () => {
-						document.querySelectorAll('.active').forEach(img => {
-							img.classList.toggle('flip');
-						})
-					}, 2400)
+	div.addEventListener('click', () => {
+		div.classList.toggle('flip');
+		div.firstChild.classList.toggle('hidden'); 
+		clickedElements.push(div);
+		if(clickedElements.length === 2) {
+			compareValues(clickedElements); 
+			console.log(clickedElements);
+		}
+	})
 
-					setTimeout( () => {
-						document.querySelectorAll('.active').forEach(img => {
-							img.setAttribute('src', 'grey.png');
-							img.classList.toggle('flip');
-							img.classList.toggle('active');
-						})
-						
-					}, 2500)
-
-					setTimeout( () => {
-						document.querySelectorAll('.flip').forEach(img => {
-							img.classList.toggle('flip');
-						})
-					}, 3200)
-					console.log('no match');
-
-					firstClick = '';
-				}
-			} else {
-				img.setAttribute('src', `https://robohash.org/${rand}?set=set4`);
-				img.classList.toggle('flip');
-				img.classList.toggle('active'); 
-				firstClick = evt.srcElement.id;
-				console.log(firstClick);
-			}
-		})
 
 	return div;
 }
@@ -103,4 +97,4 @@ const createGameBoard = () => {
 }
 
 createGameBoard();
-console.log(gamePieces[0]);
+console.log(gamePieces);
