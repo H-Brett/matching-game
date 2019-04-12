@@ -39,8 +39,6 @@ const compareValues = (arr) => {
 			})
 		}, 3000)
 	}
-
-	console.log(arr);
 	clickedElements = []; 
 }
 
@@ -65,12 +63,20 @@ const getImage = (rand, i) => {
 	div.appendChild(gamePiece)
 
 	div.addEventListener('click', () => {
-		div.classList.toggle('flip');
-		div.firstChild.classList.toggle('hidden'); 
+		if(div.classList.contains('flip-back')) {
+			setTimeout( () => {
+				div.classList.toggle('flip-back'); 
+			}, 1)
+		}
+
+		setTimeout( () => {
+			div.classList.toggle('flip');
+			div.firstChild.classList.toggle('hidden'); 
+		}, 5)
+		
 		clickedElements.push(div);
 		if(clickedElements.length === 2) {
 			compareValues(clickedElements); 
-			console.log(clickedElements);
 		}
 	})
 
@@ -93,6 +99,7 @@ const createGameBoard = () => {
 	shuffle(gamePieces);
 	gamePieces.forEach(img => {
 		container.appendChild(img);
+
 	})
 }
 
