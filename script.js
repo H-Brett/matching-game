@@ -52,7 +52,7 @@ const getImage = (rand, i) => {
 						document.querySelectorAll('.active').forEach(img => {
 							img.classList.toggle('flip');
 						})
-					}, 1200)
+					}, 2400)
 
 					setTimeout( () => {
 						document.querySelectorAll('.active').forEach(img => {
@@ -61,7 +61,7 @@ const getImage = (rand, i) => {
 							img.classList.toggle('active');
 						})
 						
-					}, 2000)
+					}, 2500)
 
 					setTimeout( () => {
 						document.querySelectorAll('.flip').forEach(img => {
@@ -88,13 +88,13 @@ const getImage = (rand, i) => {
 const createGameBoard = () => {
 	for (let i = 0; i < 10; i++) {
 		let random = Math.floor(Math.random() * 99999);
-		container.appendChild(getImage(random, i));
-		container.appendChild(getImage(random, i));
+		gamePieces.push(getImage(random, i));
+		gamePieces.push(getImage(random, i));
 	}
 
-	document.querySelectorAll('.image-container').forEach(node => {
-			gamePieces.push(node); 
-	})
+	// document.querySelectorAll('.image-container').forEach(node => {
+	// 		gamePieces.push(node); 
+	// })
 
 	shuffle(gamePieces);
 	gamePieces.forEach(img => {
@@ -103,4 +103,4 @@ const createGameBoard = () => {
 }
 
 createGameBoard();
-console.log(gamePieces);
+console.log(gamePieces[0]);
