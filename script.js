@@ -3,7 +3,7 @@ let gamePieces = [];
 let clickedElements = []; 
 
 const shuffle = (array) => {
-    var currentIndex = array.length
+    let currentIndex = array.length
       , temporaryValue
       , randomIndex
       ;
@@ -23,8 +23,19 @@ const shuffle = (array) => {
     return array;
 }
 
+const timer = () => {
+	let timeElement = document.querySelector('.timer'); 
+	let seconds = 0; 
+	setInterval( () => {
+		seconds++;
+		timeElement.innerText = `${seconds} sec`; 
+	}, 1000)
+}
+
 const listener = (evt) => {
 	div = evt.path[1];
+	let moves = document.querySelector('.move-counter'); 
+	moves.innerText++; 
 
 	if(div.classList.contains('flip-back')) {
 		setTimeout( () => {
@@ -86,7 +97,6 @@ const getImage = (rand, i) => {
 	return div;
 }
 
-
 const createGameBoard = () => {
 	for (let i = 0; i < 10; i++) {
 		let random = Math.floor(Math.random() * 99999);
@@ -101,4 +111,5 @@ const createGameBoard = () => {
 }
 
 createGameBoard();
+timer();
 console.log(gamePieces);
