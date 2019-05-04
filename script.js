@@ -86,7 +86,7 @@ const getImage = (rand, i) => {
 	img.classList.add('over')
 
 	let gamePiece = document.createElement('img'); 
-	gamePiece.setAttribute('src',`https://robohash.org/${rand}?set=set4`)
+	gamePiece.setAttribute('src',`https://robohash.org/set_set4/${rand}?size=150x150`)
 	gamePiece.setAttribute('id', i); 
 
 	div.appendChild(img)
